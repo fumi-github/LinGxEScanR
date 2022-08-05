@@ -845,7 +845,6 @@ lingweis <- function(data, ginfo, snps, evalue, govalues,
                       "SE_INT_ROBUST", "P_INT_ROBUST",
                       "P_JOINT_MB", "COV_SNP_INT_MB",
                       "P_JOINT_ROBUST", "COV_SNP_INT_ROBUST")[outcolumns]
-    df$SNPID <- gsub("chr", "", df$SNPID, ignore.case = TRUE)
     df$CHR <- gsub("chr", "", df$CHR, ignore.case = TRUE)
     write.table(df, chargeout, sep = "\t", row.names = FALSE, quote = FALSE)
   }
