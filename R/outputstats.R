@@ -420,13 +420,22 @@ twodfstats <- function(teststats, lslinregout, loglike0, resids0, xtxinv0, s2,
   }
   
   if (teststats[6] == TRUE) {
-    hw2df <- t(lslinregout$bb) %*% solve(lslinregout$hws2[cols,cols]) %*% lslinregout$bb
-    if (statout == TRUE)
-      outstats <- c(outstats, hw2df)
-    if (pout == TRUE)
-      outstats <- c(outstats, pchisq(hw2df,2,lower.tail = FALSE))
-    if (meta == TRUE)
-      outstats <- c(outstats, lslinregout$hws2[p+1,p+1], lslinregout$hws2[p+q,p+q], lslinregout$hws2[p+1,p+q])
+    if (is.matrix(try(solve(lslinregout$hws2[cols,cols]), silent = TRUE)) == TRUE) {
+      hw2df <- t(lslinregout$bb) %*% solve(lslinregout$hws2[cols,cols]) %*% lslinregout$bb
+      if (statout == TRUE)
+        outstats <- c(outstats, hw2df)
+      if (pout == TRUE)
+        outstats <- c(outstats, pchisq(hw2df,2,lower.tail = FALSE))
+      if (meta == TRUE)
+        outstats <- c(outstats, lslinregout$hws2[p+1,p+1], lslinregout$hws2[p+q,p+q], lslinregout$hws2[p+1,p+q])
+    } else {
+      if (statout == TRUE)
+        outstats <- c(outstats, NA)
+      if (pout == TRUE)
+        outstats <- c(outstats, NA)
+      if (meta == TRUE)
+        outstats <- c(outstats, NA, NA, NA)
+    }
   }
   return(outstats)
 }
