@@ -181,6 +181,11 @@ runalllslinreg <- function(dosage, p0, p1, p2,
                            codemask, levene, snpinfo, snplist, snpnum, outfile) {
   subdose <- dosage[subindex]
   mac <- sum(subdose)
+  if (is.na(mac)) {
+    increment(snpnum)
+    print("mac NA")
+    return (NA)
+  }
   if (mac < minmac || mac > maxmac) {
     increment(snpnum)
     return (NA)
