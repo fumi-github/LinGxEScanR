@@ -182,8 +182,7 @@ runalllslinreg <- function(dosage, p0, p1, p2,
   subdose <- dosage[subindex]
   mac <- sum(subdose)
   if (is.na(mac)) {
-    # increment(snpnum)
-    .Call(`_LinGxEScanR_increment`, snpnum)
+    increment(snpnum)
     print("mac NA")
     return (NA)
   }
